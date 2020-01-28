@@ -3,6 +3,7 @@
 class TicTacToe
   attr_reader :state
   attr_reader :winner
+  attr_accessor :current_player
 
   def initialize
     # X always goes first
@@ -70,10 +71,12 @@ class TicTacToe
   def self.board_from_moves(moves)
     game = TicTacToe.new
 
-    moves.each do |move|
-      game.choose(move[0], move[1], current_player)
+    game.current_player = 'X'
 
-      @current_player = (@current_player == 'X' ? 'O' : 'X')
+    moves.each do |move|
+      game.choose(move[0], move[1], game.current_player)
+
+      game.current_player = (game.current_player == 'X' ? 'O' : 'X')
     end
 
     game
@@ -118,5 +121,4 @@ class TicTacToe
       'Draw'
     end
   end
-
 end
